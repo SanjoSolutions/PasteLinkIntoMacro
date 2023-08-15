@@ -1,5 +1,5 @@
 ## Title: Paste Link Into Macro
-## Version: 1.1.0
+## Version: 1.1.1
 ## Interface: 100105
 
 PasteLinkIntoMacro.lua
