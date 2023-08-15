@@ -2,12 +2,15 @@ do
   local original = _G.ChatEdit_InsertLink
 
   function ChatEdit_InsertLink(text)
-    local cursorPosition = MacroFrameText:GetCursorPosition()
-    if MacroFrameText and MacroFrameText:HasFocus() and cursorPosition > 0 and strsub(MacroFrameText:GetText(), cursorPosition, cursorPosition) ~= '\n' then
-      MacroFrameText:Insert(text)
-    else
-      return original(text)
+    if MacroFrameText and MacroFrameText:HasFocus() then
+      local cursorPosition = MacroFrameText:GetCursorPosition()
+      if cursorPosition > 0 and strsub(MacroFrameText:GetText(), cursorPosition, cursorPosition) ~= '\n' then
+        MacroFrameText:Insert(text)
+        return true
+      end
     end
+
+    return original(text)
   end
 
   _G.ChatEdit_InsertLink = ChatEdit_InsertLink
