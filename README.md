@@ -20,3 +20,7 @@ With the add-on an item link is inserted instead.
 This allows you to create macros that send chat messages which refer to your profession via link.
 This add-on makes it more straight forward to insert a profession link into your macro text.
 You can do it by opening the profession window of your profession, clicking the button for creating a link to your profession and then click on the dropdown option "Macro" at the bottom of the dropdown.
+
+### Support for Macro Toolkit
+
+Supports the add-on Macro Toolkit in addition to the default macro GUI.
