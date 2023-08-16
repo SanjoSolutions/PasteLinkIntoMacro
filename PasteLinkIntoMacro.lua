@@ -2,11 +2,17 @@ do
   local original = _G.ChatEdit_InsertLink
 
   function ChatEdit_InsertLink(text)
-    if MacroFrameText and MacroFrameText:HasFocus() then
-      local cursorPosition = MacroFrameText:GetCursorPosition()
-      if cursorPosition > 0 and strsub(MacroFrameText:GetText(), cursorPosition, cursorPosition) ~= '\n' then
-        MacroFrameText:Insert(text)
-        return true
+    local frames = {
+      MacroFrameText,
+      MacroToolkitText
+    }
+    for _, frame in ipairs(frames) do
+      if frame and frame:HasFocus() then
+        local cursorPosition = frame:GetCursorPosition()
+        if cursorPosition > 0 and strsub(frame:GetText(), cursorPosition, cursorPosition) ~= '\n' then
+          frame:Insert(text)
+          return true
+        end
       end
     end
 
@@ -43,10 +49,14 @@ do
           info.notCheckable = true
           info.func = function (_, channel)
             local link = C_TradeSkillUI.GetTradeSkillListLink()
-            MacroFrameText:Insert(link)
+            if MacroFrame and MacroFrame:IsShown() and MacroFrameText then
+              MacroFrameText:Insert(link)
+            elseif MacroToolkitFrame and MacroToolkitFrame:IsShown() and MacroToolkitText then
+              MacroToolkitText:Insert(link)
+            end
           end
           info.text = 'Macro'
-          info.disabled = not _G.MacroFrameText
+          info.disabled = not _G.MacroFrameText and not _G.MacroToolkitText
           UIDropDownMenu_AddButton(info)
         end
       end
